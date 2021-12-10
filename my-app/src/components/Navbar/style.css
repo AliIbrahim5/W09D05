@@ -1,0 +1,89 @@
+html{
+    font-size: 10px;
+}
+
+body{
+    position: relative;
+}
+.navbar-header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    box-shadow: 0 0 10px 1px black;
+}
+.container{
+    padding: 1.2rem 2.6rem;
+    width: 100%;
+}
+.grid-nav{
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    align-items: center;
+    justify-items: center;
+}
+.navbar-header ul{
+    display: flex;
+    gap: 1.8rem;
+    align-items: center;
+}
+.route-list{
+    margin: 0;
+    padding: 0;
+}
+.routes ul a{
+    padding: 0.4rem 2.2rem;
+    border-radius: 0.6rem;
+    color: darkred;
+    transition: all 300ms;
+    position: relative;
+}
+.routes ul a::after{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    content: "";
+    width: 0;
+    height: 1px;
+    background: orangered;
+    transition: all 300ms;
+    transform-origin: left;
+}
+.routes ul a:hover::after{
+    width: 100%;
+}
+.routes ul a:hover{
+    color: orangered;
+}
+
+
+.navbar-header li{
+    padding: 0;
+}
+
+.routes{
+    width: 100%;
+    font-size: 1.6rem;
+}
+.logo span{
+    color: black;
+    font-size: 3rem;
+}
+.logo{
+    font-size: 2.6rem;
+    color: orangered;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.logout-btn, .cart-icon, .login-btn{
+    border:0;
+    background: none;
+    color: darkred;
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: all 300ms;
+}
+.logout-btn:hover, .cart-icon:hover, .login-btn:hover{
+    color: orangered;
+}

@@ -9,7 +9,7 @@ const NAVBAR = () => {
         <header className="navbar-header">
         <div className="container">
             <div className="grid-nav">
-                <h1 className="logo"><span>m</span>ersal</h1>
+                <h1 className="logo"><span>social</span>media</h1>
                 <div className="routes">
                     <ul className="route-list">
                         <li><Link to={"/Home"} className="route-url" >Home</Link></li>

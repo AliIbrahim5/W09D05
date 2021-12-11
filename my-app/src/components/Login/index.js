@@ -16,10 +16,10 @@ const Login = () => {
       });
       if (result.data.err) {
         setErr(result.data.err);
-        // localStorage.setItem("role", result.data.result.role.role);
+        localStorage.setItem("role", result.data.result.role.role);
       } else if (result.data.success) {
-        console.log('yes');
-        // navigate("/posts");
+        // console.log('yes');
+        navigate("/post");
       }
     } catch (error) {
       console.log(error);
@@ -27,24 +27,7 @@ const Login = () => {
   };
 
   return (
-    // <section className="section-login vvv">
-    //         <div className="login-box">
-    //             <form onSubmit={ckeck} className={"form"}>
-    //                 <div className="input-field">
-    //                     <p>Email</p>
-    //                     <input type="text" name="email" placeholder="example@gmail.com"
-    //                            onChange={(e) => setEmail(e.target.value)}/>
-    //                 </div>
-    //                 <div className="input-field">
-    //                     <p>password</p>
-    //                     <input type="password" name="password" placeholder="ex.12345"
-    //                            onChange={(e) => setPassword(e.target.value)}/>
-    //                 </div>
-    //                 <input type="submit" value="Login" className={"btn"}/>
-    //                 <p><Link to="/Regestier" className={"register"}>Don't have an account ?</Link></p>
-    //             </form>
-    //         </div>
-    //     </section>
+    
     <div className="home">
     <div className="formm">
       <h1>Login</h1>

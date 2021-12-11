@@ -1,96 +1,72 @@
 import React from 'react'
 import axios from "axios";
 import { useNavigate } from "react-router";
-import { useState, useEffect } from "react";
-import Swal from "sweetalert2";
+import { useState } from "react";
 import './style.css'
-import {Link} from "react-router-dom";
 // const URL = "http://localhost:5000";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL
+// const BASE_URL = process.env.REACT_APP_BASE_URL
 const REGISTER = () => {
   
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const navigate = useNavigate();
+  const [err, setErr] = useState("");
 
-  const [username, setUserName] = useState("");
-  const [users, setUsers] = useState([]);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  // eslint-disable-next-line
-  const [role, setRole] = useState("61a7682c2f32038287f22c4e");
-
-  const getData = async () => {
-    const items = await axios.get(`${BASE_URL}/allusers`);
-    // console.log(items.data);
-    setUsers(items.data);
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const register = async (vil) => {
-    vil.preventDefault();
-    let check = false;
-    // eslint-disable-next-line
-    users.map((item) => {
-      // eslint-disable-next-line
-      if (item.email == email || item.username == username) {
-        check = true;
-      }
-    });
-    if (check) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: " email or username alerady exists",
+  const signup = async (e) => {
+    try {
+      // prevent default to tell form to not refresh the page when submitted
+      e.preventDefault();
+      const result = await axios.post(`${BASE_URL}/resgister`, {
+        // send the body to our backend register endpoint
+        username: e.target.username.value,
+        email: e.target.email.value,
+        password: e.target.password.value,
+        password2: e.target.password2.value,
+        role: "61a4eae86ad0c2fe2b45d0aa",
       });
-    } else {
-
-      // eslint-disable-next-line
-      const res = await axios.post(
-        `${BASE_URL}/resgister`,
-        {
-          email,
-          username,
-          password,
-        }
-        
-      );
-      // navigate("/");
+      console.log(result.data);
+      // if register is successful navigate to login page 
+      if (result.data.errors) {
+          console.log(result.data.errors[0].msg);
+          setErr(result.data.errors[0].msg);
+        } else if (result.data.message){
+            setErr(result.data.message);
+        //   navigate("/login");
+        // if error set it to the useState and print it in the page
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
+  return (
+      <div className="home">
+    <div className="formm">
+      <h1>Sign Up</h1>
+      {/* signup form when submitted excute signup function */}
+      <form onSubmit={signup}>
+        <label htmlFor="username">Username:</label>
+        <input type="text" name="username" />
+        <label htmlFor="email">Email:</label>
+        <input type="email" name="email" />
+        <label htmlFor="password">Password:</label>
+        <input type="password" name="password" />
+        <label htmlFor="password2">Confirm Password:</label>
+        <input type="password" name="password2" />
+        <button type="submit">Sign up</button>
+      </form>
+      <p>{err}</p>
+      <button
+        // button for back when clicked go to home page
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        Back
+      </button>
+      </div>
+    </div>
+  );
+};
 
-  // eslint-disable-next-line 
-  const login = (vil) => {
-    vil.preventDefault();
-    navigate("/");
-  };
-    return (
-        <section className="section-login vvv">
-        <div className="login-box">
-          <form  className={"form"}>
-            <div className="input-field">
-              <p>username</p>
-              <input type="text" name="username" placeholder="ex.AliAlyahya"
-                     onChange={(e) => setUserName(e.target.value)}/>
-            </div>
-            <div className="input-field">
-              <p>Email</p>
-              <input type="text" name="email" placeholder="example@gmail.com"
-                     onChange={(e) => setEmail(e.target.value)}/>
-            </div>
-            <div className="input-field">
-              <p>password</p>
-              <input type="password" name="password" placeholder="ex.12345"
-                     onChange={(e) => setPassword(e.target.value)}/>
-            </div>
-            <input type="submit" value="register" onClick={register} className={"btn"}/>
-            <p><Link to="/login" className={"register"}>Already have an account ?</Link></p>
-          </form>
-        </div>
-      </section>
-    )
-}
 
 export default REGISTER

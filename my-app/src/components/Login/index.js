@@ -55,6 +55,9 @@ const Login = () => {
         <label htmlFor="password">Password:</label>
         <input type="password" name="password" />
         <button type="submit">Login</button>
+        <button type="submit" onClick={() => {
+          navigate("/Regestier");
+        }} >Regestier</button>
       </form>
       <p>{err}</p>
       <p className="forgot" onClick={() => {

@@ -9,7 +9,7 @@ import Home from "./components/Home";
 function App() {
   return (
     <>
-     <Navbar/>
+     {/* <Navbar/> */}
       <Routes>
         <Route exact path="/login" element={<Login/>} />
         <Route exact path="/Navbar" element={<Navbar/>} />

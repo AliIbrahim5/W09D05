@@ -1,45 +1,43 @@
-const insitialState={
-    user: null, 
+const initialState = {
+    role: "",
     token: "",
-};
-
-
-const singnIn = (state = insitialState, action) =>{
-const {type ,payload} = action;
-
-switch (type) {
-    case "LOGIN":
-        const {user,token} = payload;
+  };
+  
+  const Login = (state = initialState, action) => {
+    const { type, payload } = action;
+  
+    switch (type) {
+      case "LOGIN":
+        const { role, token } = payload;
         localStorage.setItem("token", token);
-        return {user,token};
-
-        case "LOGOUT":
-            return {user: null,token:""};
-
-            default: 
-            return state;
-
-}
-};
-
-export default singnIn;
-
-
-export const login =(data) =>{
-
-    return{
-        type : "LOGIN",
-        payload: data,
-
+        localStorage.setItem("role", role);
+        return { role, token };
+      case "LOGOUT":
+        localStorage.removeItem("token");
+        localStorage.removeItem("role");
+        return { role: "", token: "" };
+      default:
+        const tokenStorge = localStorage.getItem("token");
+        const roleStorge = localStorage.getItem("role");
+        if (tokenStorge && roleStorge)
+          return { role: roleStorge, token: tokenStorge };
+        else return state;
     }
-};
-export const logout =(data) =>{
-
-    return{
-        type : "LOGOUT",
-        
-        payload: data,
-
-    }
-};
-
+  };
+  
+  export default Login;
+  
+  export const userLogin = (data) => {
+    return {
+      type: "LOGIN",
+      payload: data,
+    };
+  };
+  
+  export const userLogout = (data) => {
+    return {
+      type: "LOGOUT",
+      payload: data,
+    };
+  };
+  

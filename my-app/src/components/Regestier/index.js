@@ -5,9 +5,9 @@ import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import './style.css'
 import {Link} from "react-router-dom";
-const BASE_URL = "http://localhost:5000";
+// const URL = "http://localhost:5000";
 
-// const BASE_URL = process.env.REACT_APP_BASE_URL
+const BASE_URL = process.env.REACT_APP_BASE_URL
 const REGISTER = () => {
   
   const navigate = useNavigate();
@@ -61,6 +61,7 @@ const REGISTER = () => {
     }
   };
 
+  // eslint-disable-next-line 
   const login = (vil) => {
     vil.preventDefault();
     navigate("/");

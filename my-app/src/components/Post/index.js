@@ -17,7 +17,7 @@ const POST = ({ setPost, getPost }) => {
         e.preventDefault();
         // eslint-disable-next-line
         let res = await axios.post(
-          `${process.env.REACT_APP_BASE_URL}/newPost/${state.signIn.user._id}`,
+          `${process.env.REACT_APP_BASE_URL}/newpost/${state.signIn.user._id}`,
           {
             desc: desc,
             img: img,

@@ -20,7 +20,6 @@ const NAVBAR = () => {
                 </div>
                 <div className="account-icons">
                     <ul className="icons-list">
-                        <li><Link to={"/Post"} className={"cart-icon"}>like</Link></li>
                         {localStorage.getItem("newUser") ?
                             <button className="logout-btn">logout</button> :
                             <li><Link to={"/login"}> login</Link></li>}</ul>

@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar";
 import Regestier from "./components/Regestier";
 import Home from "./components/Home";
 import Post from './components/Post'
-import Posts from './components/posts'
+import Desc from './components/Desc'
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
         <Route exact path='/login' element={<Login />}/>
         <Route exact path='/Regestier' element={<Regestier />}/>
         <Route exact path="/post" element={<Post/>}/>
-        <Route exact path="/posts" element={<Posts/>}/>
+        <Route exact path="/Desc" element={<Desc/>}/>
       </Routes>
       </>
   );

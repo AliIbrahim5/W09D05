@@ -1,12 +1,21 @@
 import React, { useState } from "react";
 import axios from "axios";
 import './style.css'
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Post from '../../components/Post'
 
 const Login = () => {
+  const state = useSelector((state) => {
+    return state;
+  });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  
   const BASE_URL = process.env.REACT_APP_BASE_URL;
   const [err, setErr] = useState("");
+  const [tokenLocal, setTokenLocal] = useState();
   const login = async (e) => {
     try {
       e.preventDefault();
@@ -15,10 +24,15 @@ const Login = () => {
         password: e.target.password.value,
       });
       if (result.data.err) {
+        localStorage.setItem("role", result.data.data.result.role);
+        localStorage.setItem("token", result.data.data.token);
+        localStorage.setItem("id", result.data.data.result._id);
+        const local = localStorage.getItem("token");
+      setTokenLocal(local);
         setErr(result.data.err);
-        localStorage.setItem("role", result.data.result.role.role);
+     
       } else if (result.data.success) {
-        // console.log('yes');
+        
         navigate("/post");
       }
     } catch (error) {
@@ -29,6 +43,9 @@ const Login = () => {
   return (
     
     <div className="home">
+      {tokenLocal ? (
+        <Post/>
+      ) : (
     <div className="formm">
       <h1>Login</h1>
 
@@ -54,6 +71,7 @@ const Login = () => {
         Back
       </button>
     </div>
+    )}
   </div>
   );
 };

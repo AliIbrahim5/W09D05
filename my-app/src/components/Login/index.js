@@ -7,33 +7,26 @@ import { useNavigate } from "react-router-dom";
 import Post from '../../components/Post'
 
 const Login = () => {
-  const state = useSelector((state) => {
-    return state;
-  });
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  
+   const navigate = useNavigate();
   const BASE_URL = process.env.REACT_APP_BASE_URL;
   const [err, setErr] = useState("");
-  const [tokenLocal, setTokenLocal] = useState();
   const login = async (e) => {
     try {
       e.preventDefault();
+      // const result = await axios.post(`${BASE_URL}/login`, {
+      //   email: e.target.email.value,
+      //   password: e.target.password.value,
+      // });
       const result = await axios.post(`${BASE_URL}/login`, {
         email: e.target.email.value,
         password: e.target.password.value,
-      });
+      }, {withCredentials: true});
       if (result.data.err) {
-        localStorage.setItem("role", result.data.data.result.role);
-        localStorage.setItem("token", result.data.data.token);
-        localStorage.setItem("id", result.data.data.result._id);
-        const local = localStorage.getItem("token");
-      setTokenLocal(local);
         setErr(result.data.err);
-     
+        // localStorage.setItem("role", result.data.result.role.role);
       } else if (result.data.success) {
-        
-        navigate("/post");
+        console.log('helllllo');
+        navigate("/posts");
       }
     } catch (error) {
       console.log(error);
@@ -41,38 +34,30 @@ const Login = () => {
   };
 
   return (
-    
     <div className="home">
-      {tokenLocal ? (
-        <Post/>
-      ) : (
-    <div className="formm">
-      <h1>Login</h1>
+      <div className="formm">
+        <h1>Login</h1>
 
-      <form onSubmit={login}>
-        <label htmlFor="email">Email:</label>
-        <input type="email" name="email" />
-        <label htmlFor="password">Password:</label>
-        <input type="password" name="password" />
-        <button type="submit">Login</button>
-        <button type="submit" onClick={() => {
-          navigate("/Regestier");
-        }} >Regestier</button>
-      </form>
-      <p>{err}</p>
-      <p className="forgot" onClick={() => {
-          navigate("/forgot");
-        }}>Forget Password?</p>
-      <button
-        onClick={() => {
-          navigate("/");
-        }}
-      >
-        Back
-      </button>
+        <form onSubmit={login}>
+          <label htmlFor="email">Email:</label>
+          <input type="email" name="email" />
+          <label htmlFor="password">Password:</label>
+          <input type="password" name="password" />
+          <button type="submit">Login</button>
+        </form>
+        <p>{err}</p>
+        <p className="forgot" onClick={() => {
+            navigate("/forgot");
+          }}>Forget Password?</p>
+        <button
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          Back
+        </button>
+      </div>
     </div>
-    )}
-  </div>
   );
 };
 

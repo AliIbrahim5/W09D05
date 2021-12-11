@@ -1,70 +1,188 @@
-# Getting Started with Create React App
+# W09D03
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
+## The packages used:
+- [React](https://reactjs.org/) A JavaScript library for building user interfaces.
 
-### `npm start`
+- [axios](https://www.npmjs.com/package/axios) is a promise based HTTP client for the browser and node.js.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [redux](https://www.npmjs.com/package/redux) is a predictable state container for JavaScript apps.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- [react-redux](https://www.npmjs.com/package/react-redux) is a React bindings for Redux.
 
-### `npm test`
+- [redux-devtools-extension](https://www.npmjs.com/package/redux-devtools-extension) is a debugging platform for Redux apps.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [react-icons](https://react-icons.github.io/react-icons/) Include popular icons in your React projects easily with react-icons.
 
-### `npm run build`
+- [sweetalert2](https://sweetalert2.github.io/) A Beautiful, Responsive, Customizable, Accessible (Wai-aria) Replacement For Javascript's Popup Boxes.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## UML Daigram (frontEnd)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Description
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**the description** 
+It is a link between backend and frontend and fetching the task from Mongoose Data Base, and before all that, you have to register and login to view your posts
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+##How to use
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Signup:** At first, you need to register a new account
+- **Login:** As a user I can login to the platform so that I can log my exit points
+- **Logout:** As a user I can logout from the platform so no one else can use it
+- **Add a new post** You can create as many stickers as you want
+- **Edit post** You can also add if you add a task and want to modify it
+- **delete post** As a user I can add players to a tournament
+- **like with post** If you like the post or for an experiment, you can like the post
+- **comment post** Write a comment under the photo or post
+ 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## React Router Routes (React App)
 
-## Learn More
+| Path             | Component            | Permissions                | Behavior                                                     |
+| ---------------- | -------------------- | -------------------------- | ------------------------------------------------------------ |
+| `/`              | SplashPage           | public `<Route>`           | Home page                                                    |
+| `//resgister`    | SignupPage           | anon only `<AnonRoute>`    | Signup form, link to login, navigate to homepage after signup|
+| `/login`         | LoginPage            | anon only `<AnonRoute>`    | Login form, link to signup, navigate to homepage after login |
+|  `/postdelet/id` |  delete task         |                            |                                                              |
+| `/post`         |ShowAllTasksForTheUser| user only `<PrivateRoute>` |   Delete exit                                             |
+| `/post`          | add a task           | user only `<PrivateRoute>` | Details of a exit  to edit                             |
+|`/postsupdeta/id` | Editing the task     | user only `<PrivateRoute>` | Edits a exit                                          |
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## components
 
-### Code Splitting
+**login**
+**register**
+**post**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+# Server / Backend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
+## Models
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
+schema post
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+``` 
+{
+const mongoose = require("mongoose");
+
+const post = new mongoose.Schema({
+  img: { type: String },
+  desc: { type: String, require: true },
+  time: { type: Date },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  comment: { type: mongoose.Schema.Types.ObjectId, ref: "Comment" },
+  isDel: { type: Boolean, default: false },
+});
+
+module.exports = mongoose.model("Post", post);
+
+}
+```
+
+
+
+
+schema user
+
+``` 
+{
+
+const mongoose = require("mongoose");
+
+const user = new mongoose.Schema({
+  username: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, require: true },
+  img: { type: String },
+  isDelet: { type: Boolean, default: false },
+  verified: { type: Boolean, default: false, },
+  resetLink: { type: String, default: '' },
+  role: [{ type: mongoose.Schema.Types.ObjectId, ref: "Role" }],
+});
+
+
+module.exports = mongoose.model("User", user);
+
+}
+```
+
+
+
+schema role
+
+``` 
+{
+const mongoose = require("mongoose");
+
+const role = new mongoose.Schema({
+  role: { type: String },
+  permossion: { type: Array },
+});
+module.exports = mongoose.model("Role", role);
+}
+```
+
+
+schema like
+
+``` 
+{
+const mongoose = require("mongoose");
+
+
+const like = new mongoose.Schema({
+  like: { type: Boolean, default: false },
+  post: { type: mongoose.Schema.Types.ObjectId, ref: "Post" },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+});
+
+
+module.exports = mongoose.model("Like", like);
+
+}
+```
+
+
+schema comment
+
+``` 
+{
+const mongoose = require("mongoose");
+
+const comment = new mongoose.Schema({
+  desc: { type: String, require: true },
+  time: { type: Date },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  post: { type: mongoose.Schema.Types.ObjectId, ref: "Post" },
+});
+
+module.exports = mongoose.model("Comment", comment);
+
+}
+```
+
+
+
+
+
+
+
+ ## LINKEDIN:  https://www.linkedin.com/in/ali-i-alyahya/
+
+
+
+
+
+
+
+![This is an image](https://myoctocat.com/assets/images/base-octocat.svg)
+

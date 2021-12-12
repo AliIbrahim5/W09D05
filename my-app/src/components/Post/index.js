@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import "./style.css"
-const POST = ({ setPost, getPost }) => {
+const POST = () => {
     const state = useSelector((state) => {
         return state;
       });
@@ -15,23 +15,43 @@ const POST = ({ setPost, getPost }) => {
       // Create new post
       const newPost = async (e) => {
         e.preventDefault();
+                let res = await axios.get( `${process.env.REACT_APP_BASE_URL}/user`, {withCredentials: true})
+               console.log(res.data);
+      if (res.data._id) {
+        // console.log('dsdsds');
         // eslint-disable-next-line
-        // console.log(state.signIn);
-        let res = await axios.post(
-          `${process.env.REACT_APP_BASE_URL}/newpost/${state.signIn.user._id}`,
+        // console.log(state.signIn.user._id);
+        let rres = await axios.post(
+          `${process.env.REACT_APP_BASE_URL}/newpost/${res.data._id}`,
           {
 
             desc: desc,
             img: img,
-          },
-          {
-            headers: { Authorization: `Bearer ${state.signIn.token}` },
-          }
+          },{withCredentials: true},
         );
-        setPost(false);
+        console.log(rres.data);
+        // setPost(false);
         e.target[0].value = "";
         e.target[1].value = "";
-        getPost();
+        // getPost();
+      }
+        // // eslint-disable-next-line
+        // console.log(state.signIn.user._id);
+        // let res = await axios.post(
+        //   `${process.env.REACT_APP_BASE_URL}/newpost/${state.signIn.user._id}`,
+        //   {
+
+        //     desc: desc,
+        //     img: img,
+        //   },
+        //   {
+        //     headers: { Authorization: `Bearer ${state.signIn.token}` },
+        //   }
+        // );
+        // setPost(false);
+        // e.target[0].value = "";
+        // e.target[1].value = "";
+        // getPost();
       };
     
       return (

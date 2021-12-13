@@ -34,7 +34,7 @@ const Login = () => {
   };
 
   return (
-    <div className="home">
+    <div className="fff">
       <div className="formm">
         <h1>Login</h1>
 

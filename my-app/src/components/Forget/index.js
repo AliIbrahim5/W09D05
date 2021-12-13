@@ -9,7 +9,7 @@ const ForgotPass = () => {
   const reset = async (e) => {
     try {
       e.preventDefault();
-      const result = await axios.post(`${BASE_URL}/forgot`, {
+      const result = await axios.post(`${BASE_URL}/forgott`, {
         email: e.target.email.value,
       });
       console.log(result.data);

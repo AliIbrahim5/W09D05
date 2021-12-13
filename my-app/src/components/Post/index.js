@@ -1,93 +1,138 @@
-import React from 'react';
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./style.css"
-import { useNavigate } from "react-router-dom";
-const POST = () => {
-  const navigate = useNavigate();
+import './style.css'
 
-    const state = useSelector((state) => {
-        return state;
+const Post = () => {
+  const params = useParams();
+  const [data, setData] = useState([]);
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
+
+  const getPosts = async () => {
+    try {
+      await axios
+        .get(`${BASE_URL}/post/${params.id}`, { withCredentials: true })
+        .then((result) => {
+          setData(result.data);
+          console.log(result.data);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const sendComment = async (e) => {
+    e.preventDefault();
+    try {
+      const user = await axios.get(`${BASE_URL}/user`, {
+        withCredentials: true,
       });
-    
-      //
-      const [img, setImg] = useState("");
-      const [desc, setDesc] = useState("");
-    
-      // Create new post
-      const newPost = async (e) => {
-        e.preventDefault();
-                let res = await axios.get( `${process.env.REACT_APP_BASE_URL}/user`, {withCredentials: true})
-               console.log(res.data);
-      if (res.data._id) {
-        // console.log('dsdsds');
-        // eslint-disable-next-line
-        // console.log(state.signIn.user._id);
-        let rres = await axios.post(
-          `${process.env.REACT_APP_BASE_URL}/newpost/${res.data._id}`,
+      console.log(params.id);
+      if (user.data) {
+        const resp = await axios.post(
+          `${BASE_URL}/newComment/${params.id}`,
           {
-
-            desc: desc,
-            img: img,
-          },{withCredentials: true},
+            desc: e.target.comment.value,
+            user: user.data.user._id,
+          },
+          {
+            withCredentials: true,
+          }
         );
-        console.log(rres.data);
-        // setPost(false);
-        e.target[0].value = "";
-        e.target[1].value = "";
-        // getPost();
+        console.log(resp.data);
+        getComments();
       }
-        // // eslint-disable-next-line
-        // console.log(state.signIn.user._id);
-        // let res = await axios.post(
-        //   `${process.env.REACT_APP_BASE_URL}/newpost/${state.signIn.user._id}`,
-        //   {
+    } catch (err) {
+      console.error(err);
+    }
+    e.target.comment.value = "";
+  };
 
-        //     desc: desc,
-        //     img: img,
-        //   },
-        //   {
-        //     headers: { Authorization: `Bearer ${state.signIn.token}` },
-        //   }
-        // );
-        // setPost(false);
-        // e.target[0].value = "";
-        // e.target[1].value = "";
-        // getPost();
-      };
-    
-      return (
-        <div className="home">
-          <form className="formm"
-            onSubmit={(e) => {
-              newPost(e);
-            }}
-          >
-            <input
-              type="text"
-              name="img"
-              placeholder="Image URL"
-              onChange={(e) => setImg(e.target.value)}
-            />
-            <input
-              type="text"
-              name="desc"
-              placeholder="Descriopn"
-              onChange={(e) => setDesc(e.target.value)}
-              required
-            />
-            <input type="submit" name="submit" value="Post"  />
-            <button
-          onClick={() => {
-            navigate("/");
-          }}
-        >
-          Back
-        </button>
-          </form>
-        </div>
+  const [noComment, setNoComment] = useState(0);
+  const [commments, setcommments] = useState([]);
+
+  const getComments = async () => {
+    try {
+      const resp = await axios.post(
+        `${BASE_URL}/getComment`,
+        {
+          _id: params.id,
+        },
+        { withCredentials: true }
       );
-    };
+      console.log(resp.data);
+      setcommments(resp.data);
+      setNoComment(resp.data.length);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-export default POST
+  useEffect(() => {
+    getPosts();
+    getComments();
+  }, []);
+  return (
+    <div>
+      <div className="homedd">
+        <div className="blog">
+          <h1>{data?.desc} tdrfyhgjbknlm</h1>
+          <img
+            src={data?.img}
+            alt="suppose to be picture here"
+            width="400"
+            height="400"
+          />
+          <h1>{data?.desc}</h1>
+        </div>
+
+        <form className="comments_form" onSubmit={sendComment}>
+          <div className="commentHead">
+            <h3>New Comment</h3>
+            <button type="submit">Submit</button>
+          </div>
+          <div className="commentTail">
+            <img
+              src="https://bootdey.com/img/Content/avatar/avatar1.png"
+              alt=""
+            />
+            <textarea
+              name="comment"
+              placeholder="Your message"
+              required
+              cols="55"
+              rows="8"
+            ></textarea>
+          </div>
+          <div className="numComment">
+            <h3>{noComment} Comments</h3>
+          </div>
+          {commments.length &&
+            commments.map((comment, index) => {
+              return (
+                <div className="realComment" key={index}>
+                  <hr />
+                  <div className="realcommentRow">
+                    <img
+                      src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                      alt=""
+                    />
+                    <div className="realcommentData">
+                      <h3>{comment.user}</h3>
+                      <p>{comment.desc}</p>
+                      <p className="dateP">
+                        {/* {comment.createdAt.slice(0, 10)}{" "}
+                        {comment.createdAt.slice(11, 16)} */}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default Post;

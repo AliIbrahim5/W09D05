@@ -19,12 +19,11 @@ const Desc = () => {
   const [likes, setLikes] = useState([]);
 
   // Get post with comments and likes
+  console.log(id,'get commeint with like');
   const getData = async () => {
     let res = await axios.get(
       `${process.env.REACT_APP_BASE_URL}/getPostWithComments/${id}`,
-      {
-        headers: { Authorization: `Bearer ${state.signIn.token}` },
-      }
+      
     );
 
     let data0 = res.data[0];
@@ -44,8 +43,11 @@ const Desc = () => {
   }, []);
 
   // Button like
+  console.log(state.signIn.user._id,'like');
+
   const likePost = async () => {
     // eslint-disable-next-line
+    
     let res = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/like/${state.signIn.user._id}/${post._id}`
     );
@@ -53,6 +55,7 @@ const Desc = () => {
   };
 
   // Create new commnet
+  console.log(state.signIn.user._id,'new');
   const newComment = async (e) => {
     e.preventDefault();
     // eslint-disable-next-line

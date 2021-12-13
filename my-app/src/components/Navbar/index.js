@@ -13,9 +13,9 @@ const NAVBAR = () => {
                 <div className="routes">
                     <ul className="route-list">
                         <li><Link to={"/Home"} className="route-url" >Home</Link></li>
-                        <li><Link to="/Post">post</Link></li>
-                        <li><Link to="/Desc">commant</Link></li>
-                        <li><Link to="/posts">posts</Link></li>
+                        <li><Link to="/Post">Post</Link></li>
+                        <li><Link to="/Desc">Comment</Link></li>
+                        <li><Link to="/posts">Posts</Link></li>
                     </ul>
                 </div>
                 <div className="account-icons">

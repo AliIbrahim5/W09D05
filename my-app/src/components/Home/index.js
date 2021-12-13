@@ -23,7 +23,7 @@ const Home = () => {
   }
 
   return (
-    <div className="home">
+    <div className="fffs">
       <div className="homeContainer">
         <h1>  Welcome to <h1 className="logo"><span>Social</span>Media</h1></h1>
         <div className="btns">
@@ -41,7 +41,7 @@ const Home = () => {
             clientId="834336498641-nqe16c7o3tit8osa5aj8mfl21rulj74r.apps.googleusercontent.com"
             buttonText="Login"
             onSuccess={responseGoogle}
-            // onFailure={responseGoogle}
+            onFailure={responseGoogle}
             cookiePolicy={"single_host_origin"}
           /><br/>
        <button style={{ textDecoration: "none", color:'black', width:"100%" }} onClick={postss}> Check Post </button>

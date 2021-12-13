@@ -6,6 +6,7 @@ import Regestier from "./components/Regestier";
 import Home from "./components/Home";
 import Post from './components/Post'
 import Desc from './components/Desc'
+import Forget from './components/Forget'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route exact path='/Regestier' element={<Regestier />}/>
         <Route exact path="/post" element={<Post/>}/>
         <Route exact path="/Desc" element={<Desc/>}/>
+        <Route exact path="/forgot" element={<Forget/>}/>
       </Routes>
       </>
   );

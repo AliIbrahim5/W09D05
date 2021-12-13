@@ -3,7 +3,10 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import "./style.css"
+import { useNavigate } from "react-router-dom";
 const POST = () => {
+  const navigate = useNavigate();
+
     const state = useSelector((state) => {
         return state;
       });
@@ -75,6 +78,13 @@ const POST = () => {
               required
             />
             <input type="submit" name="submit" value="Post"  />
+            <button
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          Back
+        </button>
           </form>
         </div>
       );

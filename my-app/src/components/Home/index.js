@@ -18,6 +18,10 @@ const Home = () => {
     navigate('/posts')
   }
 
+  const postss =()=>{
+    navigate('/post')
+  }
+
   return (
     <div className="home">
       <div className="homeContainer">
@@ -40,11 +44,7 @@ const Home = () => {
             // onFailure={responseGoogle}
             cookiePolicy={"single_host_origin"}
           /><br/>
-                    <button style={{width:'100%'}}>
-            <Link style={{ textDecoration: "none", color:'black'}} to="post">
-              Check Posts
-            </Link>
-          </button>
+       <button style={{ textDecoration: "none", color:'black', width:"100%" }} onClick={postss}> Check Post </button>
         </div>
       </div>
     </div>

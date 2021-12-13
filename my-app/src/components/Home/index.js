@@ -13,7 +13,7 @@ const Home = () => {
     console.log(response.profileObj);
     const result = await axios.post(`${BASE_URL}/login`, {
       email: "hektrs2@gmail.com",
-      password: "Ww1234512345",
+      password: "*****",
     }, {withCredentials: true});
     navigate('/posts')
   }

@@ -1,20 +1,23 @@
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import './style.css'
 
 const Post = () => {
   const params = useParams();
   const [data, setData] = useState([]);
   const BASE_URL = process.env.REACT_APP_BASE_URL;
+  const [User, setUser] = useState("");
+  const [likes, setlikes] = useState(0);
+  const [currentUserLiked, setcurrentUserLiked] = useState(false);
 
   const getPosts = async () => {
     try {
       await axios
         .get(`${BASE_URL}/post/${params.id}`, { withCredentials: true })
         .then((result) => {
-          setData(result.data);
           console.log(result.data);
+          setlikes(result.data[0].like.length);
+          setData(result.data);
         });
     } catch (error) {
       console.log(error);
@@ -24,22 +27,17 @@ const Post = () => {
   const sendComment = async (e) => {
     e.preventDefault();
     try {
-      const user = await axios.get(`${BASE_URL}/user`, {
-        withCredentials: true,
-      });
-      console.log(params.id);
-      if (user.data) {
+      if (User) {
         const resp = await axios.post(
           `${BASE_URL}/newComment/${params.id}`,
           {
-            desc: e.target.comment.value,
-            user: user.data.user._id,
+            comment: e.target.comment.value,
+            username: User,
           },
           {
             withCredentials: true,
           }
         );
-        console.log(resp.data);
         getComments();
       }
     } catch (err) {
@@ -56,7 +54,7 @@ const Post = () => {
       const resp = await axios.post(
         `${BASE_URL}/getComment`,
         {
-          _id: params.id,
+          postID: params.id,
         },
         { withCredentials: true }
       );
@@ -68,22 +66,91 @@ const Post = () => {
     }
   };
 
-  useEffect(() => {
+  const DeleteComment = async (id) => {
+    try {
+      const resp = await axios.delete(`${BASE_URL}/deletecomment/${id}`, {
+        withCredentials: true,
+      });
+      console.log(resp.data);
+      getComments();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const UpdateComment = async (id) => {
+    try {
+      const new_comment = prompt("Edit comment to:");
+      const resp = await axios.put(
+        `${BASE_URL}/updatecomment/${id}`,
+        {
+          comment: new_comment,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(resp.data);
+      getComments();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const likePost = async () => {
+    try {
+      const resp = await axios.get(`${BASE_URL}/like/${params.id}`, {
+        withCredentials: true,
+      });
+      console.log(resp.data.result);
+      if(resp.data.result=='removeLike'){
+          setcurrentUserLiked(false)
+      }else if(resp.data.result=='newLike'){
+        setcurrentUserLiked(true)
+      }
+      getPosts();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(async () => {
+    const user = await axios.get(`${BASE_URL}/user`, {
+      withCredentials: true,
+    });
+    setUser(user.data.user._id);
     getPosts();
     getComments();
+    data[0]?.like.map((like) => {
+      if (like.user == User) {
+        setcurrentUserLiked(true);
+      }
+    });
   }, []);
+
   return (
     <div>
-      <div className="homedd">
+      <div className="home">
         <div className="blog">
-          <h1>{data?.desc} tdrfyhgjbknlm</h1>
+          <h1>{data[0]?.title}</h1>
           <img
-            src={data?.img}
+            src={data[0]?.img}
             alt="suppose to be picture here"
             width="400"
             height="400"
           />
-          <h1>{data?.desc}</h1>
+          <p>{data[0]?.desc}</p>
+          <h4>
+            Like:
+            {currentUserLiked ? (
+              <span id="heart" onClick={likePost}>
+                ❤️
+              </span>
+            ) : (
+              <span onClick={likePost}>🤍</span>
+            )}
+            | {likes}
+          </h4>
         </div>
 
         <form className="comments_form" onSubmit={sendComment}>
@@ -93,7 +160,7 @@ const Post = () => {
           </div>
           <div className="commentTail">
             <img
-              src="https://bootdey.com/img/Content/avatar/avatar1.png"
+              src="https://proplayers.eu/media/cache/avatar_profile/avatars/024027-20210517185321.jpeg"
               alt=""
             />
             <textarea
@@ -107,28 +174,50 @@ const Post = () => {
           <div className="numComment">
             <h3>{noComment} Comments</h3>
           </div>
-          {commments.length &&
-            commments.map((comment, index) => {
+          {commments
+            ?.map((comment, index) => {
               return (
                 <div className="realComment" key={index}>
                   <hr />
                   <div className="realcommentRow">
                     <img
-                      src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                      src="https://proplayers.eu/media/cache/avatar_profile/avatars/024027-20210517185321.jpeg"
                       alt=""
                     />
                     <div className="realcommentData">
-                      <h3>{comment.user}</h3>
-                      <p>{comment.desc}</p>
+                      <h3>{comment.user.username}</h3>
+                      <p>{comment.comment}</p>
                       <p className="dateP">
-                        {/* {comment.createdAt.slice(0, 10)}{" "}
-                        {comment.createdAt.slice(11, 16)} */}
+                        {comment.createdAt.slice(0, 10)}
+                        {comment.createdAt.slice(11, 16)}
                       </p>
                     </div>
+                    {console.log(comment)}
+                    {comment.user._id == User ? (
+                      <p
+                        className="del"
+                        onClick={() => DeleteComment(comment._id)}
+                      >
+                        ❌
+                      </p>
+                    ) : (
+                      <></>
+                    )}
+                    {comment.user._id == User ? (
+                      <p
+                        className="del"
+                        onClick={() => UpdateComment(comment._id)}
+                      >
+                        🖊️
+                      </p>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                 </div>
               );
-            })}
+            })
+            .reverse()}
         </form>
       </div>
     </div>

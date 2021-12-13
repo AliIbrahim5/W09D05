@@ -7,8 +7,8 @@ import Home from "./components/Home";
 import Post from './components/Post'
 import Desc from './components/Desc'
 import Forget from './components/Forget'
-import Posts from './components/posts'
-import PasswordReset from './components/passwordrest'
+import Posts from './components/Posts'
+import PasswordReset from './components/Passwordrest'
 import Activated from './components/Activated'
 
 function App() {

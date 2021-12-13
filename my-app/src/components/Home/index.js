@@ -12,8 +12,8 @@ const Home = () => {
   const responseGoogle=async(response)=>{
     console.log(response.profileObj);
     const result = await axios.post(`${BASE_URL}/login`, {
-      email: "hektrs2@gmail.com",
-      password: "*****",
+      email: "alyahya473@gmail.com",
+      password: "Ww1234512345",
     }, {withCredentials: true});
     navigate('/posts')
   }
@@ -21,7 +21,7 @@ const Home = () => {
   return (
     <div className="home">
       <div className="homeContainer">
-        <h1>Welcome to FlawBerry</h1>
+        <h1>  Welcome to <h1 className="logo"><span>Social</span>Media</h1></h1>
         <div className="btns">
           <button>
             <Link className="s" style={{ textDecoration: "none" }} to="login">
@@ -29,7 +29,7 @@ const Home = () => {
             </Link>
           </button>
           <button>
-            <Link className="s" style={{ textDecoration: "none" }} to="signUp">
+            <Link className="s" style={{ textDecoration: "none" }} to="Regestier">
               Sign up
             </Link>
           </button>
@@ -41,7 +41,7 @@ const Home = () => {
             cookiePolicy={"single_host_origin"}
           /><br/>
                     <button style={{width:'100%'}}>
-            <Link style={{ textDecoration: "none", color:'black'}} to="posts">
+            <Link style={{ textDecoration: "none", color:'black'}} to="post">
               Check Posts
             </Link>
           </button>

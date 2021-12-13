@@ -16,11 +16,12 @@ const Post = () => {
         .get(`${BASE_URL}/post/${params.id}`, { withCredentials: true })
         .then((result) => {
           console.log(result.data);
-          setlikes(result.data[0].like.length);
+          // setlikes(result.data.like.length);
           setData(result.data);
+          console.log(data);
         });
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -31,7 +32,7 @@ const Post = () => {
         const resp = await axios.post(
           `${BASE_URL}/newComment/${params.id}`,
           {
-            comment: e.target.comment.value,
+            desc: e.target.comment.value,
             username: User,
           },
           {
@@ -54,11 +55,11 @@ const Post = () => {
       const resp = await axios.post(
         `${BASE_URL}/getComment`,
         {
-          postID: params.id,
+          post: params.id,
         },
         { withCredentials: true }
       );
-      console.log(resp.data);
+      console.log(resp.data,'dsdsdsdsdsd');
       setcommments(resp.data);
       setNoComment(resp.data.length);
     } catch (err) {
@@ -113,11 +114,12 @@ const Post = () => {
       console.error(err);
     }
   };
-
   useEffect(async () => {
     const user = await axios.get(`${BASE_URL}/user`, {
       withCredentials: true,
     });
+ console.log(user.data.user._id,'shatha');
+
     setUser(user.data.user._id);
     getPosts();
     getComments();
@@ -127,19 +129,20 @@ const Post = () => {
       }
     });
   }, []);
-
   return (
     <div>
       <div className="home">
         <div className="blog">
-          <h1>{data[0]?.title}</h1>
+          {/* <h1>{data?.title}</h1> */}
           <img
-            src={data[0]?.img}
+            src={data?.img}
             alt="suppose to be picture here"
             width="400"
             height="400"
           />
-          <p>{data[0]?.desc}</p>
+{  console.log(data,'slo')
+}
+          <p>{data.desc}</p>
           <h4>
             Like:
             {currentUserLiked ? (
@@ -152,7 +155,7 @@ const Post = () => {
             | {likes}
           </h4>
         </div>
-
+        
         <form className="comments_form" onSubmit={sendComment}>
           <div className="commentHead">
             <h3>New Comment</h3>
@@ -174,8 +177,8 @@ const Post = () => {
           <div className="numComment">
             <h3>{noComment} Comments</h3>
           </div>
-          {commments
-            ?.map((comment, index) => {
+          
+          {/* {commments ?.map((desc, index) => {
               return (
                 <div className="realComment" key={index}>
                   <hr />
@@ -185,28 +188,28 @@ const Post = () => {
                       alt=""
                     />
                     <div className="realcommentData">
-                      <h3>{comment.user.username}</h3>
-                      <p>{comment.comment}</p>
+                      <h3>{desc.user.username}</h3>
+                      <p>{desc.desc}</p>
                       <p className="dateP">
-                        {comment.createdAt.slice(0, 10)}
-                        {comment.createdAt.slice(11, 16)}
+                        {desc.createdAt.slice(0, 10)}
+                        {desc.createdAt.slice(11, 16)}
                       </p>
                     </div>
-                    {console.log(comment)}
-                    {comment.user._id == User ? (
+                    {console.log(desc)}
+                    {desc.user._id == User ? (
                       <p
                         className="del"
-                        onClick={() => DeleteComment(comment._id)}
+                        onClick={() => DeleteComment(desc._id)}
                       >
                         ❌
                       </p>
                     ) : (
                       <></>
                     )}
-                    {comment.user._id == User ? (
+                    {desc.user._id == User ? (
                       <p
                         className="del"
-                        onClick={() => UpdateComment(comment._id)}
+                        onClick={() => UpdateComment(desc._id)}
                       >
                         🖊️
                       </p>
@@ -217,7 +220,7 @@ const Post = () => {
                 </div>
               );
             })
-            .reverse()}
+            .reverse()} */}
         </form>
       </div>
     </div>

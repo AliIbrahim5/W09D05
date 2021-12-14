@@ -10,13 +10,17 @@ const Home = () => {
   const navigate = useNavigate();
 
   const responseGoogle=async(response)=>{
+    try{
     console.log(response.profileObj);
     // eslint-disable-next-line
     const result = await axios.post(`${BASE_URL}/login`, {
-      email: "alyahya473@gmail.com",
+      email: ".....@gmail.com",
       password: "Ww1234512345",
     }, {withCredentials: true});
     navigate('/posts')
+    }catch (err) {
+      console.error(err);
+    }
   }
 
   const postss =()=>{

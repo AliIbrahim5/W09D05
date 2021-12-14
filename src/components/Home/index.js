@@ -1,13 +1,9 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import GoogleLogin from 'react-google-login'
 import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
-
-
-// dhjhgfjdgffffkk
-
 
 const Home = () => {
   const navigate = useNavigate();
@@ -26,9 +22,9 @@ const Home = () => {
     }
   }
 
-  const postss =()=>{
-    navigate('/post')
-  }
+  // const postss =()=>{
+  //   navigate('/post')
+  // }
 
   return (
     <>
@@ -48,14 +44,15 @@ const Home = () => {
     <div class="log-in">
     <h1>  Welcome to <h1 ><span >Social</span>Media</h1></h1>
       <div class="ptn">
-        
+      
+        <div class="fab fa-google">
         <a href=""><i><GoogleLogin
-          class="fab fa-apple"
-            clientId="834336498641-nqe16c7o3tit8osa5aj8mfl21rulj74r.apps.googleusercontent.com"
+           clientId="834336498641-nqe16c7o3tit8osa5aj8mfl21rulj74r.apps.googleusercontent.com"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
             cookiePolicy={"single_host_origin"}
           /></i></a>
+          </div>
         <a href="login"><i class="fab fa-apple"></i>Login</a>
         <a href="Regestier"> Sign up</a>
       </div>

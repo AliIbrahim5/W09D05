@@ -12,6 +12,10 @@
 .img-home{
   background:url("https://www.socialmediaexaminer.com/wp-content/uploads/2018/07/SMMpodcastNew@2x.png");
 }
+
+.fab fa-google{
+border-radius: 25px;
+}
 @media (min-width: 1000px) {
     article {
       width: 100vw;

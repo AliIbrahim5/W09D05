@@ -9,4 +9,12 @@
     height: 1.8rem;
     margin-left: 5px;
   }
+
+  .posts-add{
+    padding: 1%;
+    border-radius: 25px;
+    box-shadow: blue;
+    grid: 20px;
+
+  }
   

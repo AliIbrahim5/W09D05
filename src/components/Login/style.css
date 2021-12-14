@@ -86,7 +86,7 @@
     box-sizing: border-box;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   }
-.home{
+/* .home{
     
     height: 100vh;
     width: 100%;
@@ -134,4 +134,157 @@
   .forgot{
     color: darkblue;
     cursor: pointer;
+  } */
+  
+@media (min-width: 1000px) {
+  article {
+    width: 100vw;
+    height: 95vh;
+    display: flex;
   }
+}
+.one {
+  width: 55%;
+  height: 100%;
+  position: relative;
+}
+.two {
+  width: 45%;
+  height: 100%;
+  margin-left: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+.one .img {
+  width: 100vh;
+  height: 100vh;
+}
+.one div img {
+  width: 100vh;
+  height: 100vh;
+}
+.one div + div {
+  color: white;
+  position: absolute;
+  width: 200px;
+  height: 180px;
+  display: flex;
+  top: 50%;
+  margin-top: -90px;
+  left: 50%;
+  margin-left: -100px;
+}
+.one div + div i {
+  font-size: 200px;
+  line-height: 180px;
+}
+.two .logo i {
+  font-size: 2.5rem;
+  color: rgb(29, 155, 240);
+  margin-block-start: 8rem;
+  margin-block-end: 4rem;
+}
+.log-in {
+  display: flex;
+  flex-direction: column;
+}
+.log-in h1 {
+  font-size: 5rem;
+}
+.log-in h2 {
+  font-size: 2rem;
+  margin-block: 1.4rem;
+}
+@media (max-width: 500px) {
+  .log-in h1 {
+    font-size: 1.6rem;
+  }
+  .log-in h2 {
+    font-size: 1rem;
+  }
+}
+.log-in div {
+  width: 18.5rem;
+}
+.log-in div > a {
+  display: block;
+  padding: 0.5rem 3rem;
+  text-decoration: none;
+  color: black;
+  border: 1px solid rgb(233, 234, 236);
+  border-radius: 25px;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 1rem;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
+  font-weight: bold;
+}
+.log-in div > a:hover {
+  background-color: rgb(201, 201, 201);
+}
+.log-in div > a i {
+  margin-right: 0.3rem;
+}
+.log-in div > a + a i {
+  font-size: 20px;
+}
+.log-in > p:nth-child(n + 2) {
+  margin-bottom: 1.8rem;
+  text-decoration: none;
+  font-size: 12px;
+}
+.log-in > p:nth-child(4) {
+  max-width: 22rem;
+}
+.log-in > p:nth-child(5) {
+  font-size: 16px;
+}
+.log-in > p a:nth-child(n + 1) {
+  margin-bottom: 1.8rem;
+  text-decoration: none;
+  color: rgb(29, 155, 240);
+}
+.log-in > p a:hover:nth-child(n + 1) {
+  text-decoration: underline;
+}
+@media (min-width: 1000px) {
+  footer {
+    width: 100%;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+ul {
+  text-align: center;
+  min-width: 5rem;
+}
+ul li {
+  list-style: none;
+  display: inline-block;
+  margin-left: 0.8rem;
+  font-size: 12px;
+}
+ul li a {
+  text-decoration: none;
+  color: rgb(83, 100, 113);
+}
+@media (max-width: 1000px) {
+  body {
+    overflow: scroll;
+  }
+  article {
+    width: unset;
+    height: unset;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .one {
+    width: 100%;
+    height: 100%;
+  }
+}

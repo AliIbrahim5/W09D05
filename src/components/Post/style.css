@@ -6,7 +6,9 @@
   }
   
   .home{
-    background-color: bisque;
+
+     background-color: #7492EF; /* For browsers that do not support gradients */
+ background-image: linear-gradient(#7492EF, #16389e);
     min-height: 100vh;
     width: 100%;
     position:absolute;

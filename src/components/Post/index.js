@@ -2,8 +2,13 @@ import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./style.css";
+import {BsSuitHeart} from "react-icons/bs"
+import {FaKissWinkHeart} from "react-icons/fa"
+import {RiChatDeleteFill} from "react-icons/ri"
+import {FiSend} from "react-icons/fi"
 
 const Post = () => {
+  
   const params = useParams();
   const [data, setData] = useState([]);
   const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -155,10 +160,10 @@ const Post = () => {
             Like:
             {currentUserLiked ? (
               <span id="heart" onClick={likePost}>
-                ❤️
+                <FaKissWinkHeart/>
               </span>
             ) : (
-              <span onClick={likePost}>🤍</span>
+              <span onClick={likePost}><BsSuitHeart/></span>
             )}
             | {likes}
           </h4>
@@ -166,12 +171,12 @@ const Post = () => {
 
         <form className="comments_form" onSubmit={sendComment}>
           <div className="commentHead">
-            <h3>New Comment</h3>
-            <button type="submit">Submit</button>
+            <h3>Comment</h3>
+            <button type="submit"><FiSend/></button>
           </div>
           <div className="commentTail">
             <img
-              src="https://proplayers.eu/media/cache/avatar_profile/avatars/024027-20210517185321.jpeg"
+              src="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
               alt=""
             />
             <textarea
@@ -193,7 +198,7 @@ const Post = () => {
                   <hr />
                   <div className="realcommentRow">
                     <img
-                      src="https://proplayers.eu/media/cache/avatar_profile/avatars/024027-20210517185321.jpeg"
+                      src="https://storyy.cc/wp-content/uploads/2018/05/5386.jpg"
                       alt=""
                     />
                     <div className="realcommentData">
@@ -207,7 +212,7 @@ const Post = () => {
                         className="del"
                         onClick={() => DeleteComment(desc._id)}
                       >
-                        ❌
+                        <RiChatDeleteFill/>
                       </p>
                     ) : (
                       <></>

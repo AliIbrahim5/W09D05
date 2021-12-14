@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import GoogleLogin from 'react-google-login'
 import axios from "axios";
+
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 
@@ -16,7 +17,7 @@ const Home = () => {
     console.log(response.profileObj);
     // eslint-disable-next-line
     const result = await axios.post(`${BASE_URL}/login`, {
-      email: ".....@gmail.com",
+      email: "alyahya473@gmail.com",
       password: "Ww1234512345",
     }, {withCredentials: true});
     navigate('/posts')
@@ -30,32 +31,45 @@ const Home = () => {
   }
 
   return (
-    <div className="fffs">
-      <div className="homeContainer">
-        <h1>  Welcome to <h1 className="logo"><span>Social</span>Media</h1></h1>
-        <div className="btns">
-          <button>
-            <Link className="s" style={{ textDecoration: "none" }} to="login">
-              Login
-            </Link>
-          </button>
-          <button>
-            <Link className="s" style={{ textDecoration: "none" }} to="Regestier">
-              Sign up
-            </Link>
-          </button>
-          <GoogleLogin
+    <>
+    <article className="home"> 
+  <section class="one">
+    <div class="img">
+      <img src="https://abs.twimg.com/sticky/illustrations/lohp_en_850x623.png" alt="twitter"/>
+    </div>
+    <div>
+      <i class="fab fa-twitter"></i>
+    </div>
+  </section>
+  <section class="two">
+    <div class="logo">
+      <i class="fab fa-twitter"></i>
+    </div>
+    <div class="log-in">
+    <h1>  Welcome to <h1 ><span >Social</span>Media</h1></h1>
+      <div class="ptn">
+        
+        <a href=""><i><GoogleLogin
+          class="fab fa-apple"
             clientId="834336498641-nqe16c7o3tit8osa5aj8mfl21rulj74r.apps.googleusercontent.com"
-            buttonText="Login"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
             cookiePolicy={"single_host_origin"}
-          /><br/>
-       <button style={{ textDecoration: "none", color:'black', width:"100%" }} onClick={postss}> Check Post </button>
-        </div>
+          /></i></a>
+        <a href="login"><i class="fab fa-apple"></i>Login</a>
+        <a href="Regestier"> Sign up</a>
       </div>
     </div>
-  );
+  </section>
+</article>
+
+</>
+  )
+
+    
+    
+    
+  
 };
 
 export default Home;

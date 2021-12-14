@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {RiMailSendLine} from 'react-icons/ri'
 
 const Posts = () => {
   const navigate = useNavigate();
@@ -83,16 +84,13 @@ const Posts = () => {
         {!error && add ? (
           <form onSubmit={newPost} className="new">
             <p>New post:</p>
-            <div>
-              <p>Title: </p>
-              <input type="text" name="title" />
-            </div>
+         
             <div>
               <p>Description: </p>
               <textarea name="desc" cols="30" rows="10"></textarea>
             </div>
             <div>
-              <p>Img: </p>
+              <p>Imge: </p>
               <input type="text" name="img" />
             </div>
             {addError}
@@ -108,7 +106,7 @@ const Posts = () => {
         {error ? (
           <p style={{ marginTop: "50px" }}>Kindly login first to see posts</p>
         ) : null}
-        <div className="posts">
+        <div className="posts-add">
           {posts?.map((item) => {
             return (
               <div key={item._id} className="post" onClick={()=>navigate(`/post/${item._id}`)}>
@@ -119,8 +117,8 @@ const Posts = () => {
                   alt=""
                 />
                 <h2 style={{ display: "inline" }}>{item.desc}</h2>
-                {/* <p>created at {item.createdAt.slice(0, 10)}</p> */}
-                {/* <button onClick={() => del(item._id)}>x</button> */}
+                <p>created at {item.createdAt.slice(0, 10)}</p> 
+                 <button onClick={() => (item._id)}><RiMailSendLine/></button>
                 <br />
               </div>
             );

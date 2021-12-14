@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import axios from "axios";
 import './style.css';
 import { useNavigate } from "react-router-dom";
-
+console.log(process.env.REACT_APP_BASE_URL);
 const Login = () => {
    const navigate = useNavigate();
+  
   const BASE_URL = process.env.REACT_APP_BASE_URL;
   const [err, setErr] = useState("");
   const login = async (e) => {
@@ -31,7 +32,8 @@ const Login = () => {
   };
 
   return (
-    <div className="fff">
+    
+    <div className="home">
       <div className="formm">
         <h1>Login</h1>
 

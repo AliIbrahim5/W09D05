@@ -1,4 +1,4 @@
-html{
+/* html{
     font-size: 10px;
 }
 
@@ -13,8 +13,11 @@ body{
     background: white;
     box-shadow: 0 0 10px 1px black;
 }
+/* .list-nav{
+    list-style-type: none;
+} */
 .container{
-    padding: 1.2rem 2.6rem;
+    /* padding: 1.2rem 2.6rem; */
     width: 100%;
 }
 .grid-nav{
@@ -86,4 +89,4 @@ body{
 }
 .logout-btn:hover, .cart-icon:hover, .login-btn:hover{
     color: orangered;
-}
+} 

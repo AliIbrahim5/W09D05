@@ -45,6 +45,7 @@ const PasswordReset = () => {
 
   useEffect(() => {
     check();
+    // eslint-disable-next-line
   }, []);
 
   return (

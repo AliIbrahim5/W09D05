@@ -11,6 +11,7 @@ const Home = () => {
 
   const responseGoogle=async(response)=>{
     console.log(response.profileObj);
+    // eslint-disable-next-line
     const result = await axios.post(`${BASE_URL}/login`, {
       email: "alyahya473@gmail.com",
       password: "Ww1234512345",

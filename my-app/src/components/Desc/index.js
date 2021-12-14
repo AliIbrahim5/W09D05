@@ -48,6 +48,7 @@ const Desc = () => {
   const likePost = async () => {
     // eslint-disable-next-line
     
+    // eslint-disable-next-line
     let res = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/like/${state.signIn.user._id}/${post._id}`
     );

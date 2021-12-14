@@ -29,6 +29,7 @@ const Activated = () => {
 
   useEffect(() => {
     check();
+    // eslint-disable-next-line
   }, []);
 
   return (

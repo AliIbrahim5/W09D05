@@ -20,7 +20,6 @@ const Posts = () => {
             setPosts(result.data);
           }
         });
-
       //   if(result.data.error){
       //       navigate("/error")
       //   }
@@ -43,6 +42,7 @@ const Posts = () => {
 
   useEffect(() => {
     getPosts();
+    // eslint-disable-next-line
   }, []);
 
 

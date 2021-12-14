@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "./style.css";
 
 const Post = () => {
   const params = useParams();
@@ -19,7 +20,9 @@ const Post = () => {
           setData(result.data);
           setlikes(result.data.like.length);
           console.log(data);
+          // eslint-disable-next-line
           result.data.like?.map((like) => {
+            // eslint-disable-next-line
             if (like.user == User) {
               setcurrentUserLiked(true);
             }
@@ -34,6 +37,7 @@ const Post = () => {
     e.preventDefault();
     try {
       if (User) {
+        // eslint-disable-next-line
         const resp = await axios.post(
           `${BASE_URL}/newComment/${params.id}`,
           {
@@ -64,8 +68,8 @@ const Post = () => {
         },
         { withCredentials: true }
       );
-      console.log(resp.data.length,);
-      console.log(resp.data,'dsdsdsdsdsd');
+      console.log(resp.data.length);
+      console.log(resp.data, "dsdsdsdsdsd");
       setcommments(resp.data);
       setNoComment(resp.data.length);
     } catch (err) {
@@ -77,7 +81,7 @@ const Post = () => {
       const resp = await axios.delete(`${BASE_URL}/deletecomment/${id}`, {
         withCredentials: true,
       });
-      console.log(resp.data,'aliasssssss');
+      console.log(resp.data, "aliasssssss");
       getComments();
     } catch (err) {
       console.error(err);
@@ -109,41 +113,43 @@ const Post = () => {
         withCredentials: true,
       });
       console.log(resp.data);
-      if(resp.data.result=='removeLike'){
-          setcurrentUserLiked(false)
-      }else if(resp.data.result=='newLike'){
-        setcurrentUserLiked(true)
+      // eslint-disable-next-line
+      if (resp.data.result == "removeLike") {
+        setcurrentUserLiked(false);
+        // eslint-disable-next-line
+      } else if (resp.data.result == "newLike") {
+        setcurrentUserLiked(true);
       }
       getPosts();
     } catch (err) {
       console.error(err);
     }
   };
+  // eslint-disable-next-line
   useEffect(async () => {
     const user = await axios.get(`${BASE_URL}/user`, {
       withCredentials: true,
     });
-//  console.log(user.data.user._id,'shatha');
+    
 
     setUser(user.data.user._id);
     getPosts();
     getComments();
-    console.log(data,'dddddddddddddd');
-
+    console.log(data, "dddddddddddddd");
+    // eslint-disable-next-line
   }, []);
   return (
     <div>
       <div className="home">
         <div className="blog">
-          {/* <h1>{data?.title}</h1> */}
+          
           <img
             src={data?.img}
-            alt="suppose to be picture here"
+            alt=""
             width="400"
             height="400"
           />
-{/* {  console.log(data,'slo')
-} */}
+          
           <p>{data.desc}</p>
           <h4>
             Like:
@@ -157,7 +163,7 @@ const Post = () => {
             | {likes}
           </h4>
         </div>
-        
+
         <form className="comments_form" onSubmit={sendComment}>
           <div className="commentHead">
             <h3>New Comment</h3>
@@ -179,8 +185,9 @@ const Post = () => {
           <div className="numComment">
             <h3>{noComment} Comments</h3>
           </div>
-          
-          {commments ?.map((desc, index) => {
+
+          {commments
+            ?.map((desc, index) => {
               return (
                 <div className="realComment" key={index}>
                   <hr />
@@ -192,13 +199,10 @@ const Post = () => {
                     <div className="realcommentData">
                       <h3>{desc.user.username}</h3>
                       <p>{desc.desc}</p>
-                      <p className="dateP">
-                        {/* {desc.createdAt.slice(0, 10)}
-                        {desc.createdAt.slice(11, 16)} */}
-                      </p>
-                    </div>
-                    {console.log(desc)}
-                    {desc.user._id == User ? (
+                      
+                      
+                      <p className="dateP"></p></div>{desc.user._id === User ? (
+                      
                       <p
                         className="del"
                         onClick={() => DeleteComment(desc._id)}
@@ -207,8 +211,8 @@ const Post = () => {
                       </p>
                     ) : (
                       <></>
-                    )}
-                    {desc.user._id == User ? (
+                      // eslint-disable-next-line
+                    )}{desc.user._id == User ? (
                       <p
                         className="del"
                         onClick={() => UpdateComment(desc._id)}

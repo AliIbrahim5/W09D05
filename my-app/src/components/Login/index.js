@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import './style.css'
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import './style.css';
 import { useNavigate } from "react-router-dom";
-import Post from '../../components/Post'
 
 const Login = () => {
    const navigate = useNavigate();

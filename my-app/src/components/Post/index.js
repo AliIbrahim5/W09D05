@@ -33,7 +33,7 @@ const Post = () => {
           `${BASE_URL}/newComment/${params.id}`,
           {
             desc: e.target.comment.value,
-            username: User,
+            user: User,
           },
           {
             withCredentials: true,
@@ -59,6 +59,7 @@ const Post = () => {
         },
         { withCredentials: true }
       );
+      console.log(resp.data.length,);
       console.log(resp.data,'dsdsdsdsdsd');
       setcommments(resp.data);
       setNoComment(resp.data.length);
@@ -66,13 +67,12 @@ const Post = () => {
       console.error(err);
     }
   };
-
   const DeleteComment = async (id) => {
     try {
       const resp = await axios.delete(`${BASE_URL}/deletecomment/${id}`, {
         withCredentials: true,
       });
-      console.log(resp.data);
+      console.log(resp.data,'aliasssssss');
       getComments();
     } catch (err) {
       console.error(err);
@@ -85,7 +85,7 @@ const Post = () => {
       const resp = await axios.put(
         `${BASE_URL}/updatecomment/${id}`,
         {
-          comment: new_comment,
+          desc: new_comment,
         },
         {
           withCredentials: true,
@@ -118,7 +118,7 @@ const Post = () => {
     const user = await axios.get(`${BASE_URL}/user`, {
       withCredentials: true,
     });
- console.log(user.data.user._id,'shatha');
+//  console.log(user.data.user._id,'shatha');
 
     setUser(user.data.user._id);
     getPosts();
@@ -178,7 +178,7 @@ const Post = () => {
             <h3>{noComment} Comments</h3>
           </div>
           
-          {/* {commments ?.map((desc, index) => {
+          {commments ?.map((desc, index) => {
               return (
                 <div className="realComment" key={index}>
                   <hr />
@@ -191,8 +191,8 @@ const Post = () => {
                       <h3>{desc.user.username}</h3>
                       <p>{desc.desc}</p>
                       <p className="dateP">
-                        {desc.createdAt.slice(0, 10)}
-                        {desc.createdAt.slice(11, 16)}
+                        {/* {desc.createdAt.slice(0, 10)}
+                        {desc.createdAt.slice(11, 16)} */}
                       </p>
                     </div>
                     {console.log(desc)}
@@ -220,7 +220,7 @@ const Post = () => {
                 </div>
               );
             })
-            .reverse()} */}
+            .reverse()}
         </form>
       </div>
     </div>

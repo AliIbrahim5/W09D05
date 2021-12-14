@@ -16,9 +16,14 @@ const Post = () => {
         .get(`${BASE_URL}/post/${params.id}`, { withCredentials: true })
         .then((result) => {
           console.log(result.data);
-          // setlikes(result.data.like.length);
           setData(result.data);
+          setlikes(result.data.like.length);
           console.log(data);
+          result.data.like?.map((like) => {
+            if (like.user == User) {
+              setcurrentUserLiked(true);
+            }
+          });
         });
     } catch (error) {
       // console.log(error);
@@ -103,7 +108,7 @@ const Post = () => {
       const resp = await axios.get(`${BASE_URL}/like/${params.id}`, {
         withCredentials: true,
       });
-      console.log(resp.data.result);
+      console.log(resp.data);
       if(resp.data.result=='removeLike'){
           setcurrentUserLiked(false)
       }else if(resp.data.result=='newLike'){
@@ -123,11 +128,8 @@ const Post = () => {
     setUser(user.data.user._id);
     getPosts();
     getComments();
-    data[0]?.like.map((like) => {
-      if (like.user == User) {
-        setcurrentUserLiked(true);
-      }
-    });
+    console.log(data,'dddddddddddddd');
+
   }, []);
   return (
     <div>
@@ -140,8 +142,8 @@ const Post = () => {
             width="400"
             height="400"
           />
-{  console.log(data,'slo')
-}
+{/* {  console.log(data,'slo')
+} */}
           <p>{data.desc}</p>
           <h4>
             Like:
